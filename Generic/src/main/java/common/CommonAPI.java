@@ -54,7 +54,7 @@ public class CommonAPI {
             System.setProperty("webdriver.gecko.driver", "/Users/isti/Desktop/JuleSelenium2019/Team9Framework/Generic/src/main/java/drivers/geckodriver");
             driver = new FirefoxDriver();
         } else if(browserName.equalsIgnoreCase("chrome")){
-            System.setProperty("webdriver.chrome.driver", "/Users/isti/Desktop/JuleSelenium2019/Team9Framework/Generic/src/main/java/drivers/chromedriver");
+            System.setProperty("webdriver.chrome.driver", "/Users/isti/Desktop/JuleSelenium2019/Team9Framework/Generic/src/main/java/drivers/chrome76");
             driver = new ChromeDriver();
         }
 
@@ -67,6 +67,71 @@ public class CommonAPI {
     public void cleanUp(){
         driver.quit();
     }
+
+    public void clickOnElement(String locator){
+        try {
+            driver.findElement(By.cssSelector(locator)).click();
+        }catch (Exception ex){
+            try {
+                driver.findElement(By.className(locator)).click();
+            }catch (Exception ex2) {
+                try {
+                    driver.findElement(By.id(locator)).click();
+                } catch (Exception ex3) {
+                    driver.findElement(By.xpath(locator)).click();
+                }
+            }
+        }
+    }
+
+    public void typeOnElement(String locator, String value){
+        try {
+            driver.findElement(By.cssSelector(locator)).sendKeys(value);
+        }catch (Exception ex){
+            driver.findElement(By.id(locator)).sendKeys(value);
+        }
+    }
+    public void typeOnElementNEnter(String locator, String value) {
+        try {
+            driver.findElement(By.cssSelector(locator)).sendKeys(value, Keys.ENTER);
+        } catch (Exception ex1) {
+            try {
+                System.out.println("First Attempt was not successful");
+                driver.findElement(By.name(locator)).sendKeys(value, Keys.ENTER);
+            } catch (Exception ex2) {
+                try {
+                    System.out.println("Second Attempt was not successful");
+                    driver.findElement(By.xpath(locator)).sendKeys(value, Keys.ENTER);
+                } catch (Exception ex3) {
+                    System.out.println("Third Attempt was not successful");
+                    driver.findElement(By.id(locator)).sendKeys(value, Keys.ENTER);
+                }
+            }
+        }
+    }
+
+    public static void typeOnElementNEnter(String locator, String value,WebDriver driver1) {
+        try {
+            driver1.findElement(By.cssSelector(locator)).sendKeys(value, Keys.ENTER);
+        } catch (Exception ex1) {
+            try {
+                System.out.println("First Attempt was not successful");
+                driver1.findElement(By.id(locator)).sendKeys(value, Keys.ENTER);
+            } catch (Exception ex2) {
+                try {
+                    System.out.println("Second Attempt was not successful");
+                    driver1.findElement(By.name(locator)).sendKeys(value, Keys.ENTER);
+                } catch (Exception ex3) {
+                    System.out.println("Third Attempt was not successful");
+                    driver1.findElement(By.xpath(locator)).sendKeys(value, Keys.ENTER);
+                }
+            }
+        }
+    }
+    public void clearField(String locator) {
+        driver.findElement(By.id(locator)).clear();
+    }
+
     public void clickByCss(String locator){
         driver.findElement(By.cssSelector(locator)).click();
     }
