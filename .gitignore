@@ -24,9 +24,10 @@ hs_err_pid*
 © 2019 GitHub, Inc.
 
 
-/.idea/
-/Generic/
-target/
+**/.idea/
+**/Generic
+**/target
+
 
 
 
