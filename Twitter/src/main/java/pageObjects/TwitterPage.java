@@ -3,6 +3,9 @@ package pageObjects;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
+import reporting.TestLogger;
+
+import static common.CommonAPI.convertToString;
 
 public class TwitterPage {
 
@@ -32,6 +35,7 @@ public class TwitterPage {
     @FindBy(xpath = "//div[@role='button']")
     WebElement nextButtonToSignUp;
 
+
 //    Sign Up Method
     public void signUpOnTwitter(String name, String phoneNumber, String month, String day, String year) throws InterruptedException {
 
@@ -50,6 +54,7 @@ public class TwitterPage {
 
 //    Login Method
     public void logInToTwitter(String username, String password){
+        TestLogger.log(getClass().getSimpleName() + ": " + convertToString(new Object(){}.getClass().getEnclosingMethod().getName()));
         loginButton.click();
         usernameTextBox.sendKeys(username);
         passwordTextBox.sendKeys(password);
